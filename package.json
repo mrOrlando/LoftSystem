@@ -1,0 +1,12 @@
+{
+  "name": "LoftSystem",
+  "version": "1.0.0",
+  "description": "Большая домашняя работа курса по Node.js - Корпоративная система _\"LoftSystem\"_.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
