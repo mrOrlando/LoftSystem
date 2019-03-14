@@ -1,5 +1,7 @@
 ## LoftSystem
 
+[![Build Status](https://travis-ci.org/mrOrlando/LoftSystem.svg?branch=master)](https://travis-ci.org/mrOrlando/LoftSystem)
+
 Большая домашняя работа курса по Node.js - Корпоративная система _"LoftSystem"_.
 
 ### Задача
