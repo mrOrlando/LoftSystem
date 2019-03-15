@@ -14,3 +14,7 @@ module.exports.addUser = function(data) {
 
   return user.save();
 };
+
+module.exports.getUserByName = function(username) {
+  return User.findOne({ username });
+};

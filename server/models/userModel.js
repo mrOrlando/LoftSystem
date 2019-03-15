@@ -59,6 +59,10 @@ userScheme.methods.setPassword = function(password) {
   this.password = hash;
 };
 
+userScheme.methods.isValidPassword = function(password) {
+  return bcrypt.compareSync(password, this.password);
+};
+
 const User = mongoose.model('user', userScheme);
 
 module.exports = User;
