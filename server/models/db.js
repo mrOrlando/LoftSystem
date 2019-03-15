@@ -1,4 +1,5 @@
 const User = require('../models/userModel');
+const News = require('../models/newsModel');
 
 module.exports.addUser = function(data) {
   const user = new User({
@@ -17,4 +18,8 @@ module.exports.addUser = function(data) {
 
 module.exports.getUserByName = function(username) {
   return User.findOne({ username });
+};
+
+module.exports.getNews = function() {
+  return News.find({});
 };
