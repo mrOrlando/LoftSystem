@@ -24,6 +24,19 @@ module.exports.getUserById = function(id) {
   return User.findOne({ id });
 };
 
+module.exports.updateUser = async function(data) {
+  const { password = '', oldPassword = '' } = data;
+  delete data.password;
+
+  const user = await User.findOneAndUpdate({ id: data.id }, data);
+  if (password && oldPassword && user.isValidPassword(oldPassword)) {
+    user.setPassword(password);
+    await user.save();
+  }
+
+  return user;
+};
+
 module.exports.getUsers = function() {
   return User.find({});
 };

@@ -14,11 +14,21 @@ module.exports.saveNewUser = async function(req, res) {
 module.exports.login = async function(req, res) {
   try {
     const user = await db.getUserByName(req.body.username);
-    if (user.isValidPassword(req.body.password)) {
+    if (user && user.isValidPassword(req.body.password)) {
       res.json(user);
     } else {
       res.status(401).json({ error: 'Неверный логин или пароль!' });
     }
+  } catch (err) {
+    console.error(err);
+    res.status(400).json({ error: err.message });
+  }
+};
+
+module.exports.updateUser = async function(req, res) {
+  try {
+    const user = await db.updateUser(req.body);
+    res.json(user);
   } catch (err) {
     console.error(err);
     res.status(400).json({ error: err.message });
