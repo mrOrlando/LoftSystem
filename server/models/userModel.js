@@ -23,7 +23,7 @@ const userScheme = new Schema(
       default: uuidv1(),
     },
     firstName: String,
-    lastName: String,
+    surName: String,
     middleName: String,
     image: {
       type: String,

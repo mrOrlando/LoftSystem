@@ -5,7 +5,7 @@ module.exports.addUser = function(data) {
   const user = new User({
     username: data.username,
     firstName: data.firstName,
-    lastName: data.surName,
+    surName: data.surName,
     middleName: data.middleName,
     image: data.img,
     permission: data.permission,
