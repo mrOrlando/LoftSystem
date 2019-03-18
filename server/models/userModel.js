@@ -29,6 +29,10 @@ const userScheme = new Schema(
       type: String,
       default: '',
     },
+    permissionId: {
+      type: String,
+      default: uuidv1(),
+    },
     permission: {
       chat: {
         C: { type: Boolean },

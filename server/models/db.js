@@ -37,6 +37,17 @@ module.exports.updateUser = async function(data) {
   return user;
 };
 
+module.exports.updatePermissions = async function(permissionId, permission) {
+  const user = await User.findOne({ permissionId });
+  const { news, chat, setting } = user.get('permission');
+  const permissions = {
+    news: { ...news, ...permission.news },
+    chat: { ...chat, ...permission.chat },
+    setting: { ...setting, ...permission.setting },
+  };
+  return User.findOneAndUpdate({ permissionId }, { permission: permissions });
+};
+
 module.exports.getUsers = function() {
   return User.find({});
 };

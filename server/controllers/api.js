@@ -35,6 +35,16 @@ module.exports.updateUser = async function(req, res) {
   }
 };
 
+module.exports.updatePermissions = async function(req, res) {
+  try {
+    const user = await db.updatePermissions(req.params.id, req.body.permission);
+    res.json(user);
+  } catch (err) {
+    console.error(err);
+    res.status(400).json({ error: err.message });
+  }
+};
+
 module.exports.getUsers = async function(req, res) {
   try {
     const users = await db.getUsers();
