@@ -20,6 +20,21 @@ module.exports.getUserByName = function(username) {
   return User.findOne({ username });
 };
 
+module.exports.getUserById = function(id) {
+  return User.findOne({ id });
+};
+
 module.exports.getNews = function() {
   return News.find({});
+};
+
+module.exports.addNews = function(news) {
+  const newsItem = new News({
+    date: news.date,
+    text: news.text,
+    theme: news.theme,
+    user: news.user,
+  });
+
+  return newsItem.save();
 };

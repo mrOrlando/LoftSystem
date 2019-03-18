@@ -34,3 +34,15 @@ module.exports.getNews = async function(req, res) {
     res.status(400).json({ error: err.message });
   }
 };
+
+module.exports.newNews = async function(req, res) {
+  try {
+    const user = await db.getUserById(req.body.userId);
+    await db.addNews({ ...req.body, user });
+    const news = await db.getNews();
+    res.json(news);
+  } catch (err) {
+    console.error(err);
+    res.status(400).json({ error: err.message });
+  }
+};
