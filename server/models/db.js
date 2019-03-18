@@ -58,3 +58,7 @@ module.exports.updateNews = function(news) {
     }
   );
 };
+
+module.exports.deleteNews = function(id) {
+  return News.findOneAndDelete({ id });
+};

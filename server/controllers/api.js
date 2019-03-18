@@ -64,3 +64,14 @@ module.exports.updateNews = async function(req, res) {
     res.status(400).json({ error: err.message });
   }
 };
+
+module.exports.deleteNews = async function(req, res) {
+  try {
+    await db.deleteNews(req.params.id);
+    const news = await db.getNews();
+    res.json(news);
+  } catch (err) {
+    console.error(err);
+    res.status(400).json({ error: err.message });
+  }
+};

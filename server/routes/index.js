@@ -11,5 +11,6 @@ router.post('/api/login', controllerApi.login);
 router.get('/api/getNews', controllerApi.getNews);
 router.post('/api/newNews', controllerApi.newNews);
 router.put('/api/updateNews/:id', controllerApi.updateNews);
+router.delete('/api/deleteNews/:id', controllerApi.deleteNews);
 
 module.exports = router;
