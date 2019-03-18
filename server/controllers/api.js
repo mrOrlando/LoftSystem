@@ -25,6 +25,16 @@ module.exports.login = async function(req, res) {
   }
 };
 
+module.exports.getUsers = async function(req, res) {
+  try {
+    const users = await db.getUsers();
+    res.json(users);
+  } catch (err) {
+    console.error(err);
+    res.status(400).json({ error: err.message });
+  }
+};
+
 module.exports.getNews = async function(req, res) {
   try {
     const news = await db.getNews();

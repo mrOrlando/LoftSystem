@@ -6,6 +6,7 @@ const controllerApi = require('../controllers/api');
 // users
 router.post('/api/saveNewUser', controllerApi.saveNewUser);
 router.post('/api/login', controllerApi.login);
+router.get('/api/getUsers', controllerApi.getUsers);
 
 // news
 router.get('/api/getNews', controllerApi.getNews);

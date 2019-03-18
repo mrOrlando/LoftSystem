@@ -24,6 +24,10 @@ module.exports.getUserById = function(id) {
   return User.findOne({ id });
 };
 
+module.exports.getUsers = function() {
+  return User.find({});
+};
+
 module.exports.getNews = function() {
   return News.find({});
 };
