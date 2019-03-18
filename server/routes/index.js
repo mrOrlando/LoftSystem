@@ -10,5 +10,6 @@ router.post('/api/login', controllerApi.login);
 // news
 router.get('/api/getNews', controllerApi.getNews);
 router.post('/api/newNews', controllerApi.newNews);
+router.put('/api/updateNews/:id', controllerApi.updateNews);
 
 module.exports = router;

@@ -46,3 +46,21 @@ module.exports.newNews = async function(req, res) {
     res.status(400).json({ error: err.message });
   }
 };
+
+module.exports.updateNews = async function(req, res) {
+  try {
+    const newsOwnerId = await db.getNewsOwnerId(req.body.id);
+    if (newsOwnerId !== req.body.userId) {
+      return res
+        .status(403)
+        .json({ error: 'У вас нет прав на редактирование этой новости!' });
+    }
+
+    await db.updateNews(req.body);
+    const news = await db.getNews();
+    res.json(news);
+  } catch (err) {
+    console.error(err);
+    res.status(400).json({ error: err.message });
+  }
+};

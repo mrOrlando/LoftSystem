@@ -28,6 +28,15 @@ module.exports.getNews = function() {
   return News.find({});
 };
 
+module.exports.getNewsById = function(id) {
+  return News.findOne({ id });
+};
+
+module.exports.getNewsOwnerId = async function(newsId) {
+  const newsItem = await this.getNewsById(newsId);
+  return newsItem.get('user').id;
+};
+
 module.exports.addNews = function(news) {
   const newsItem = new News({
     date: news.date,
@@ -37,4 +46,15 @@ module.exports.addNews = function(news) {
   });
 
   return newsItem.save();
+};
+
+module.exports.updateNews = function(news) {
+  return News.findOneAndUpdate(
+    { id: news.id },
+    {
+      date: news.date,
+      text: news.text,
+      theme: news.theme,
+    }
+  );
 };
