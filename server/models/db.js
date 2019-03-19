@@ -45,7 +45,8 @@ module.exports.updatePermissions = async function(permissionId, permission) {
     chat: { ...chat, ...permission.chat },
     setting: { ...setting, ...permission.setting },
   };
-  return User.findOneAndUpdate({ permissionId }, { permission: permissions });
+  await User.findOneAndUpdate({ permissionId }, { permission: permissions });
+  return User.findOne({ permissionId });
 };
 
 module.exports.getUsers = function() {
