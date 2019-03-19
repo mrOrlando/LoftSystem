@@ -46,7 +46,7 @@ module.exports.updatePermissions = async function(permissionId, permission) {
     setting: { ...setting, ...permission.setting },
   };
   await User.findOneAndUpdate({ permissionId }, { permission: permissions });
-  return User.findOne({ permissionId });
+  return permissions;
 };
 
 module.exports.getUsers = function() {

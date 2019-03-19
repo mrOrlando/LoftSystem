@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs');
 const uuidv1 = require('uuid/v1');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const permissionId = uuidv1();
 
 const userScheme = new Schema(
   {
@@ -31,22 +32,34 @@ const userScheme = new Schema(
     },
     permissionId: {
       type: String,
-      default: uuidv1(),
+      default: permissionId,
     },
     permission: {
       chat: {
+        id: {
+          type: String,
+          default: permissionId,
+        },
         C: { type: Boolean },
         R: { type: Boolean },
         U: { type: Boolean },
         D: { type: Boolean },
       },
       news: {
+        id: {
+          type: String,
+          default: permissionId,
+        },
         C: { type: Boolean },
         R: { type: Boolean },
         U: { type: Boolean },
         D: { type: Boolean },
       },
       setting: {
+        id: {
+          type: String,
+          default: permissionId,
+        },
         C: { type: Boolean },
         R: { type: Boolean },
         U: { type: Boolean },

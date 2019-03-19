@@ -37,8 +37,12 @@ module.exports.updateUser = async function(req, res) {
 
 module.exports.updatePermissions = async function(req, res) {
   try {
-    const user = await db.updatePermissions(req.params.id, req.body.permission);
-    res.json(user);
+    const permissionId = req.params.id;
+    const permission = await db.updatePermissions(
+      permissionId,
+      req.body.permission
+    );
+    res.json({ permissionId, permission });
   } catch (err) {
     console.error(err);
     res.status(400).json({ error: err.message });
