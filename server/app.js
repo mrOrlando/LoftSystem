@@ -1,4 +1,7 @@
 const express = require('express');
+const passport = require('passport');
+const session = require('express-session');
+const FileStore = require('session-file-store')(session);
 require('dotenv').config();
 require('./models');
 
@@ -7,6 +10,24 @@ const app = express();
 app.use(express.static(__dirname + '/public'));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json({ type: 'text/plain' })); // fix bug from frontent
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET_KEY,
+    store: new FileStore(),
+    cookie: {
+      path: '/',
+      httpOnly: true,
+      maxAge: 60 * 60 * 1000,
+    },
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+
+require('./config-passport');
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use('/', require('./routes/index'));
 app.use('*', function(req, res) {
   res.sendFile(__dirname + '/public/index.html');

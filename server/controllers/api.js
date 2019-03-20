@@ -1,3 +1,4 @@
+const passport = require('passport');
 const db = require('../models/db');
 
 module.exports.saveNewUser = async function(req, res) {
@@ -11,18 +12,25 @@ module.exports.saveNewUser = async function(req, res) {
   }
 };
 
-module.exports.login = async function(req, res) {
-  try {
-    const user = await db.getUserByName(req.body.username);
-    if (user && user.isValidPassword(req.body.password)) {
-      res.json(user);
-    } else {
-      res.status(401).json({ error: 'Неверный логин или пароль!' });
+module.exports.login = function(req, res, next) {
+  passport.authenticate('local', (err, user) => {
+    if (err) {
+      console.error(err);
+      return res.status(400).json({ error: err.message });
     }
-  } catch (err) {
-    console.error(err);
-    res.status(400).json({ error: err.message });
-  }
+
+    if (!user) {
+      return res.status(401).json({ error: 'Неверный логин или пароль!' });
+    }
+
+    req.login(user, err => {
+      if (err) {
+        console.error(err);
+        return res.status(400).json({ error: err.message });
+      }
+      res.json(user);
+    });
+  })(req, res, next);
 };
 
 module.exports.updateUser = async function(req, res) {
