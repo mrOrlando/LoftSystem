@@ -37,6 +37,11 @@ module.exports.updateUser = async function(data) {
   return user;
 };
 
+module.exports.deleteUser = async function(id) {
+  const user = await User.findOneAndDelete({ id });
+  return user;
+};
+
 module.exports.updatePermissions = async function(permissionId, permission) {
   const user = await User.findOne({ permissionId });
   const { news, chat, setting } = user.get('permission');

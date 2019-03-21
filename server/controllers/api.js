@@ -43,6 +43,16 @@ module.exports.updateUser = async function(req, res) {
   }
 };
 
+module.exports.deleteUser = async function(req, res) {
+  try {
+    const user = await db.deleteUser(req.params.id);
+    res.json(user);
+  } catch (err) {
+    console.error(err);
+    res.status(400).json({ error: err.message });
+  }
+};
+
 module.exports.updatePermissions = async function(req, res) {
   try {
     const permissionId = req.params.id;
