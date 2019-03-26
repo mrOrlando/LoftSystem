@@ -10,6 +10,7 @@ router.get('/api/getUsers', controllerApi.getUsers);
 router.put('/api/updateUser/:id', controllerApi.updateUser);
 router.put('/api/updateUserPermission/:id', controllerApi.updatePermissions);
 router.delete('/api/deleteUser/:id', controllerApi.deleteUser);
+router.post('/api/authFromToken', controllerApi.authFromToken);
 
 // news
 router.get('/api/getNews', controllerApi.getNews);

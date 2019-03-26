@@ -1,4 +1,5 @@
 const passport = require('passport');
+const uuidv1 = require('uuid/v1');
 const db = require('../models/db');
 
 module.exports.saveNewUser = async function(req, res) {
@@ -23,14 +24,36 @@ module.exports.login = function(req, res, next) {
       return res.status(401).json({ error: 'Неверный логин или пароль!' });
     }
 
-    req.login(user, err => {
+    req.logIn(user, async err => {
       if (err) {
         console.error(err);
         return res.status(400).json({ error: err.message });
       }
+
+      if (req.body.remembered) {
+        const token = uuidv1();
+        user.setToken(token);
+        await db.updateUser(user);
+        res.cookie('access_token', token, {
+          maxAge: 7 * 60 * 60 * 1000,
+          path: '/',
+          httpOnly: false,
+        });
+      }
+
       res.json(user);
     });
   })(req, res, next);
+};
+
+module.exports.authFromToken = async function(req, res) {
+  try {
+    const user = await db.getUserByToken(req.body.access_token);
+    res.json(user);
+  } catch (err) {
+    console.error(err);
+    res.status(400).json({ error: err.message });
+  }
 };
 
 module.exports.updateUser = async function(req, res) {

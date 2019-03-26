@@ -70,6 +70,10 @@ const userScheme = new Schema(
   { versionKey: false }
 );
 
+userScheme.methods.setToken = function(token) {
+  this.access_token = token;
+};
+
 userScheme.methods.setPassword = function(password) {
   const salt = bcrypt.genSaltSync(10);
   const hash = bcrypt.hashSync(password, salt);

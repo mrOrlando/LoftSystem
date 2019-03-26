@@ -24,6 +24,10 @@ module.exports.getUserById = function(id) {
   return User.findOne({ id });
 };
 
+module.exports.getUserByToken = function(token) {
+  return User.findOne({ access_token: token });
+};
+
 module.exports.updateUser = async function(data) {
   const { password = '', oldPassword = '' } = data;
   delete data.password;

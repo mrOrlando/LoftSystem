@@ -21,8 +21,10 @@ app.use(
       httpOnly: true,
       maxAge: 60 * 60 * 1000,
     },
-    resave: false,
-    saveUninitialized: true,
+    resave: true,
+    saveUninitialized: false,
+    ephemeral: true,
+    rolling: true,
   })
 );
 
