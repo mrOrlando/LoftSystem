@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node server/app",
+    "heroku-postbuild": "echo Skip build on Heroku",
     "dev": "nodemon --ignore sessions/ server/app",
     "lint": "eslint server/**/*.js",
     "lint:write": "eslint --fix server/**/*.js"
