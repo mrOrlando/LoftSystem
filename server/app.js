@@ -2,6 +2,7 @@ const express = require('express');
 const passport = require('passport');
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
+const cookieParser = require('cookie-parser');
 require('dotenv').config();
 require('./models');
 
@@ -10,6 +11,7 @@ const app = express();
 app.use(express.static(__dirname + '/public'));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json({ type: 'text/plain' })); // fix bug from frontent
+app.use(cookieParser());
 app.use(
   session({
     secret: process.env.SESSION_SECRET_KEY,
