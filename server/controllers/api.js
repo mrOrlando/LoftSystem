@@ -1,5 +1,8 @@
+const path = require('path');
+const fs = require('fs');
 const passport = require('passport');
 const uuidv1 = require('uuid/v1');
+const formidable = require('formidable');
 const db = require('../models/db');
 
 module.exports.saveNewUser = async function(req, res) {
@@ -7,6 +10,48 @@ module.exports.saveNewUser = async function(req, res) {
     const user = await db.addUser(req.body);
     console.log(`User ${user.username} is saved with id ${user.id}`);
     res.json(user);
+  } catch (err) {
+    console.error(err);
+    res.status(400).json({ error: err.message });
+  }
+};
+
+module.exports.saveUserImage = async function(req, res) {
+  try {
+    const userId = req.params.id;
+    const form = new formidable.IncomingForm();
+    const upload = path.join(process.cwd(), 'server', 'public', 'upload');
+
+    if (!fs.existsSync(upload)) {
+      fs.mkdirSync(upload);
+    }
+
+    form.uploadDir = path.join(upload);
+
+    form.parse(req, async function(err, fields, files) {
+      if (err) {
+        if (fs.existsSync(files.photo.path)) {
+          fs.unlinkSync(files.photo.path);
+        }
+        console.error(err);
+        return res.status(400).json({ error: 'Возникла ошибка при обработке' });
+      }
+
+      const { name, size, path: filePath } = files[userId];
+      if (name === '' || size === 0) {
+        if (fs.existsSync(files.photo.path)) {
+          fs.unlinkSync(files.photo.path);
+        }
+        console.error(err);
+        return res.status(400).json({ error: 'Не загружена картинка' });
+      }
+
+      const fileName = path.join(upload, name);
+      fs.renameSync(filePath, fileName);
+
+      const dir = path.join('/', 'upload', name);
+      res.json({ path: dir });
+    });
   } catch (err) {
     console.error(err);
     res.status(400).json({ error: err.message });

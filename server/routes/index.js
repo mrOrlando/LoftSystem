@@ -11,6 +11,7 @@ router.put('/api/updateUser/:id', controllerApi.updateUser);
 router.put('/api/updateUserPermission/:id', controllerApi.updatePermissions);
 router.delete('/api/deleteUser/:id', controllerApi.deleteUser);
 router.post('/api/authFromToken', controllerApi.authFromToken);
+router.post('/api/saveUserImage/:id', controllerApi.saveUserImage);
 
 // news
 router.get('/api/getNews', controllerApi.getNews);
